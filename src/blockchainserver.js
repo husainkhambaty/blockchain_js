@@ -12,12 +12,12 @@ app.listen(PORT, () => {
 
 app.use(express.json());
 
-let tbbChain = new Blockchain();
+const tbbChain = new Blockchain();
 
-let walletLoadStatus = {};
+const walletLoadStatus = {};
 
 app.post('/loadWallet', (req, res) => {
-  let myWalletAddress = req.body.myWalletAddress;
+  const myWalletAddress = req.body.myWalletAddress;
     
   // Load it once
   if (!walletLoadStatus[myWalletAddress]) {
@@ -27,8 +27,8 @@ app.post('/loadWallet', (req, res) => {
 
 // API to create a new transaction
 app.post('/createTransaction', (req, res) => {
-  let data = req.body;
-  let myEncryptedKey = ec.keyFromPrivate(data.myKey);
+  const data = req.body;
+  const myEncryptedKey = ec.keyFromPrivate(data.myKey);
 
   // TODO: Validate all data
 
@@ -40,23 +40,23 @@ app.post('/createTransaction', (req, res) => {
   console.log(`Creating a txn from ${data.myWalletAddress} to ${data.receiverWalletAddress} for ${data.amount}`);
 
   // create a txn and sign it
-  let txn = new Transaction(data.myWalletAddress, data.receiverWalletAddress, data.amount)
+  const txn = new Transaction(data.myWalletAddress, data.receiverWalletAddress, data.amount);
   txn.sign(myEncryptedKey);
 
   // catch errors whie adding the txn to the blockchain
   try {
     tbbChain.addTransaction(txn);
-  } catch(err) {
-    console.log("Failed to add transaction");
-    res.status(500).send({"message" : "Not enough balance"});
-  } 
-  console.log("Transaction created and added to blockchain");
+  } catch (err) {
+    console.log('Failed to add transaction');
+    res.status(500).send({ 'message' : 'Not enough balance' });
+  }
+  console.log('Transaction created and added to blockchain');
 
   // mine the block
-  console.log("Mine the block");
+  console.log('Mine the block');
   tbbChain.minePendingTransactions(data.myWalletAddress);
   
-  res.status(200).send({"message" : "Transaction created successfully"});
+  res.status(200).send({ 'message' : 'Transaction created successfully' });
 
 });
 
@@ -64,17 +64,17 @@ app.get('/getChain', (req, res) => {
   res.status(200).send(tbbChain.chain);
 });
 
-app.get('/getPublicKey', (req, res)=> {
-  let pvtKey = req.body.pvtKey;
-  res.status(200).send({'publicKey': ec.keyFromPrivate(pvtKey).getPublic('hex')});
+app.get('/getPublicKey', (req, res) => {
+  const pvtKey = req.body.pvtKey;
+  res.status(200).send({ 'publicKey': ec.keyFromPrivate(pvtKey).getPublic('hex') });
 });
 
 app.get('/getBalance', (req, res) => {
-  let myWalletAddress = req.body.myWalletAddress;
-  res.status(200).send({"balance" : tbbChain.getBalanceOfAddress(myWalletAddress)});
+  const myWalletAddress = req.body.myWalletAddress;
+  res.status(200).send({ 'balance' : tbbChain.getBalanceOfAddress(myWalletAddress) });
 });
 
 app.get('/viewWalletTransactions', (req, res) => {
   let myWalletAddress = req.body.myWalletAddress;
-  res.status(200).send({"transactions" : tbbChain.getAllTransactionsForWallet(myWalletAddress)});
+  res.status(200).send({ 'transactions' : tbbChain.getAllTransactionsForWallet(myWalletAddress) });
 });
