@@ -57,7 +57,6 @@ app.post('/createTransaction', (req, res) => {
   tbbChain.minePendingTransactions(data.myWalletAddress);
   
   res.status(200).send({ message: 'Transaction created successfully' });
-
 });
 
 app.get('/getChain', (req, res) => {
