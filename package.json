@@ -1,0 +1,41 @@
+{
+  "name": "tbbcoin",
+  "version": "1.0.0",
+  "description": "The Building Blocks Coin",
+  "keywords": [
+    "blockchain",
+    "transactions",
+    "crypto"
+  ],
+  "main": "src/blockchain.js",
+  "scripts": {
+    "test": "nyc mocha tests/*.js",
+    "lint": "npm run lint:eslint && npm run lint:prettier",
+    "lint:eslint": "eslint src/** tests/**",
+    "lint:prettier": "prettier src/**/*.js",
+    "coverage": "nyc --reporter=lcov npm run test"
+  },
+  "author": "Husain Khambaty <husain.khambaty.consulting@gmail.com>",
+  "license": "MIT",
+  "repository": "github:husainkhambaty/TBBCoin",
+  "bugs": {
+    "url": "http://thebuildingblocks.io"
+  },
+  "homepage": "",
+  "devDependencies": {
+    "coveralls": "^3.1.1",
+    "eslint": "^8.57.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.2.0",
+    "mocha": "^10.4.0",
+    "nyc": "^15.1.0",
+    "prettier": "^3.3.1"
+  },
+  "dependencies": {
+    "debug": "^4.3.5",
+    "elliptic": "^6.5.5",
+    "express": "^4.19.2"
+  }
+}
