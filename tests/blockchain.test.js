@@ -1,3 +1,5 @@
+/* eslint no-use-before-define: 0 */  
+
 const assert = require('assert');
 const { Blockchain, Transaction } = require('../src/blockchain');
 const { createSignedTx, signingKey, createBlockchainWithTx, createBCWithMined } = require('./helpers');

@@ -1,3 +1,5 @@
+/* eslint no-use-before-define: 0 */  
+
 const assert = require('assert');
 const { Block } = require('../src/blockchain');
 const { createSignedTx } = require('./helpers');
