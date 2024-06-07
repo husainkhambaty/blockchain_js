@@ -77,3 +77,16 @@ app.get('/viewWalletTransactions', (req, res) => {
   const myWalletAddress = req.body.myWalletAddress;
   res.status(200).send({ transactions: tbbChain.getAllTransactionsForWallet(myWalletAddress) });
 });
+
+console.log("Loading all Paths: ");
+app._router.stack.forEach( elm => {
+  // console.log(elm);
+  let route=""
+  if (elm.route) {
+    if (elm.route.methods.get)
+      route+="GET "
+    if (elm.route.methods.post)
+      route+="POST "
+    console.log(route + elm.route.path);
+  }
+});
