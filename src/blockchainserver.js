@@ -82,12 +82,14 @@ console.log('Loading all Paths: ');
 app._router.stack.forEach(elm => {
   // console.log(elm);
   let route = '';
-  
+
   if (elm.route) {
-    if (elm.route.methods.get)
+    if (elm.route.methods.get) {
       route += 'GET ';
-    if (elm.route.methods.post)
+    }
+    if (elm.route.methods.post) {
       route += 'POST ';
+    }
     console.log(route + elm.route.path);
   }
 });
